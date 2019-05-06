@@ -1,7 +1,5 @@
 ﻿using CommandLine;
 using DeveImageDataSetGenerator.CommandLine;
-using System;
-using System.Threading.Tasks;
 
 namespace DeveImageDataSetGenerator
 {
