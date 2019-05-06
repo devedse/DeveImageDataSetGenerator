@@ -1,12 +1,25 @@
-﻿using System;
+﻿using CommandLine;
+using DeveImageDataSetGenerator.CommandLine;
+using System;
+using System.Threading.Tasks;
 
 namespace DeveImageDataSetGenerator
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Parser.Default.ParseArguments<CommandLineArguments>(args)
+                   .WithParsed<CommandLineArguments>(o =>
+                   {
+                       MainWithArgs(o);
+                   });
+        }
+
+        public static void MainWithArgs(CommandLineArguments args)
+        {
+            var gen = new ImageDataSetGenerator(args.AnnotationsCsvPath, args.OutputDirImages, args.OutputDirAnnotations);
+            gen.GoProcess();
         }
     }
 }
