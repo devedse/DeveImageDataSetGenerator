@@ -56,14 +56,15 @@ namespace DeveImageDataSetGenerator
             var outputAnnotationsDir = Path.GetDirectoryName(_outputAnnotationsFile);
 
             int minOfBoth = Math.Min(imagesWithNoCars.Count, imagesWithLotsOfCars.Count);
+            int maxOfBoth = Math.Max(imagesWithNoCars.Count, imagesWithLotsOfCars.Count);
 
-            for (int i = 0; i < minOfBoth; i++)
+            for (int i = 0; i < maxOfBoth; i++)
             {
                 var iNoCars = i % imagesWithNoCars.Count;
                 var iLotsOfCars = i % imagesWithLotsOfCars.Count;
 
-                var noCarImageTags = imagesWithNoCars[i];
-                var lotsOfCarImageTags = imagesWithLotsOfCars[i];
+                var noCarImageTags = imagesWithNoCars[iNoCars];
+                var lotsOfCarImageTags = imagesWithLotsOfCars[iLotsOfCars];
 
                 var imagePathNoCars = Path.Combine(_dirOfAnnotationsFile, noCarImageTags.Key);
                 var imagePathNoCarsResolved = Path.GetFullPath(imagePathNoCars);
