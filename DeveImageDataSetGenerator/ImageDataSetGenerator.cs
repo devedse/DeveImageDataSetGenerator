@@ -28,8 +28,20 @@ namespace DeveImageDataSetGenerator
         {
             var allTags = AnnotationsReaderWriter.ReadAnnotationsFromFile(_inputAnnotationsFile);
 
-            var groupedTagsPerImage = allTags.GroupBy(t => t.ImagePath);
+            var allImages = allTags.GroupBy(t => t.ImagePath).ToList();
 
+            var allAnnotations = new List<Annotations>();
+
+            var imagesWithCarsOnThem = allImages.Where(t => t.Any()).ToList();
+
+            allAnnotations.AddRange(GoCopyTheseImages(allImages));
+            allAnnotations.AddRange(GoRotateTheseImages(imagesWithCarsOnThem));
+
+            AnnotationsReaderWriter.WriteAnnotationsToFile(_outputAnnotationsFile, allAnnotations);
+        }
+
+        private List<Annotations> GoCopyTheseImages(List<IGrouping<string, Annotations>> groupedTagsPerImage)
+        {
             var allAnnotations = new List<Annotations>();
 
             var outputAnnotationsDir = Path.GetDirectoryName(_outputAnnotationsFile);
@@ -53,13 +65,28 @@ namespace DeveImageDataSetGenerator
                         Y1 = existingTag.Y1,
                         Y2 = existingTag.Y2
                     };
+
+                    allAnnotations.Add(newTag);
                 }
+            }
+
+            return allAnnotations;
+        }
+
+        private List<Annotations> GoRotateTheseImages(List<IGrouping<string, Annotations>> groupedTagsPerImage)
+        {
+            var allAnnotations = new List<Annotations>();
+
+            foreach (var imageWithTags in groupedTagsPerImage)
+            {
+                var imagePath = Path.Combine(_dirOfAnnotationsFile, imageWithTags.Key);
+                var imagePathResolved = Path.GetFullPath(imagePath);
 
                 var newAnnotations = _imageProcessor.ProcessImage(imagePathResolved, imageWithTags);
                 allAnnotations.AddRange(newAnnotations);
             }
 
-            AnnotationsReaderWriter.WriteAnnotationsToFile(_outputAnnotationsFile, allAnnotations);
+            return allAnnotations;
         }
     }
 }
