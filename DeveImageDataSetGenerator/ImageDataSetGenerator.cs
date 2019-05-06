@@ -32,7 +32,10 @@ namespace DeveImageDataSetGenerator
 
             var allAnnotations = new List<Annotations>();
 
-            var imagesWithCarsOnThem = allImages.Where(t => t.Any()).ToList();
+            var imagesWithCarsOnThem = allImages.Where(t => t.All(z => z.IsValid)).ToList();
+            var maxTags = imagesWithCarsOnThem.Max(t => t.Count());
+            var allImagesWithMaxAmountOfCarsOnThem = imagesWithCarsOnThem.Where(t => t.Count() == maxTags).ToList();
+            var imagesWithNoCarsOnThem = allImages.Where(t => t.All(z => !z.IsValid)).ToList();
 
             allAnnotations.AddRange(GoCopyTheseImages(allImages));
             allAnnotations.AddRange(GoRotateTheseImages(imagesWithCarsOnThem));

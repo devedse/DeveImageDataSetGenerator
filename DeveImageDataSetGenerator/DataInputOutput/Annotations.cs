@@ -8,18 +8,20 @@ namespace DeveImageDataSetGenerator.DataInputOutput
         public string ImagePath { get; set; }
 
         [Index(1)]
-        public int X1 { get; set; }
+        public int? X1 { get; set; }
 
         [Index(2)]
-        public int Y1 { get; set; }
+        public int? Y1 { get; set; }
 
         [Index(3)]
-        public int X2 { get; set; }
+        public int? X2 { get; set; }
 
         [Index(4)]
-        public int Y2 { get; set; }
+        public int? Y2 { get; set; }
 
         [Index(5)]
         public string Tag { get; set; }
+
+        public bool IsValid => X1 != null && X2 != null && Y1 != null && Y2 != null && !string.IsNullOrWhiteSpace(Tag);
     }
 }

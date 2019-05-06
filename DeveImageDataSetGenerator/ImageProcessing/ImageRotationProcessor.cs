@@ -74,10 +74,10 @@ namespace DeveImageDataSetGenerator.ImageProcessing
 
                     foreach (var tag in annotations)
                     {
-                        var tagTopLeft = new Vector2D(tag.X1, tag.Y1);
-                        var tagTopRight = new Vector2D(tag.X2, tag.Y1);
-                        var tagBottomLeft = new Vector2D(tag.X1, tag.Y2);
-                        var tagBottomRight = new Vector2D(tag.X2, tag.Y2);
+                        var tagTopLeft = new Vector2D(tag.X1.Value, tag.Y1.Value);
+                        var tagTopRight = new Vector2D(tag.X2.Value, tag.Y1.Value);
+                        var tagBottomLeft = new Vector2D(tag.X1.Value, tag.Y2.Value);
+                        var tagBottomRight = new Vector2D(tag.X2.Value, tag.Y2.Value);
 
                         var tagRotatedTopLeft = tagTopLeft.TransformBy(rotationMatrix) + vectorToAdd;
                         var tagRotatedTopRight = tagTopRight.TransformBy(rotationMatrix) + vectorToAdd;
