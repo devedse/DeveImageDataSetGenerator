@@ -26,8 +26,6 @@ namespace DeveImageDataSetGenerator.ImageProcessing
 
         public List<Annotations> ProcessImage(string imagePath, IEnumerable<Annotations> annotations)
         {
-            Console.WriteLine($"Handling image: {imagePath}");
-
             var newAnnotations = new List<Annotations>();
 
             using (var image = Image.Load<Rgba32>(imagePath))
