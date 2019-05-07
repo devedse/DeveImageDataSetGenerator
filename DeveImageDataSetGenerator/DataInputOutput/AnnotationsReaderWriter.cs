@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -12,7 +13,9 @@ namespace DeveImageDataSetGenerator.DataInputOutput
         {
             var config = new Configuration()
             {
-                HasHeaderRecord = false
+                HasHeaderRecord = false,
+                CultureInfo = CultureInfo.InvariantCulture,
+                Delimiter = ","
             };
 
             using (var reader = new StreamReader(filePath))
@@ -29,7 +32,9 @@ namespace DeveImageDataSetGenerator.DataInputOutput
         {
             var config = new Configuration()
             {
-                HasHeaderRecord = false
+                HasHeaderRecord = false,
+                CultureInfo = CultureInfo.InvariantCulture,
+                Delimiter = ","
             };
 
             using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Read))

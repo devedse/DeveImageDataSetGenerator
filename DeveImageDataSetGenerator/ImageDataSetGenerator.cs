@@ -67,10 +67,10 @@ namespace DeveImageDataSetGenerator
                 var lotsOfCarImageTags = imagesWithLotsOfCars[iLotsOfCars];
 
                 var imagePathNoCars = Path.Combine(_dirOfAnnotationsFile, noCarImageTags.Key);
-                var imagePathNoCarsResolved = Path.GetFullPath(imagePathNoCars);
+                var imagePathNoCarsResolved = Uri.UnescapeDataString(Path.GetFullPath(imagePathNoCars));
 
                 var imagePathLotsOfCars = Path.Combine(_dirOfAnnotationsFile, lotsOfCarImageTags.Key);
-                var imagePathLotsOfCarsResolved = Path.GetFullPath(imagePathLotsOfCars);
+                var imagePathLotsOfCarsResolved = Uri.UnescapeDataString(Path.GetFullPath(imagePathLotsOfCars));
 
                 using (var imageNoCars = Image.Load(imagePathNoCarsResolved))
                 {
@@ -125,7 +125,7 @@ namespace DeveImageDataSetGenerator
             foreach (var imageWithTags in groupedTagsPerImage)
             {
                 var imagePath = Path.Combine(_dirOfAnnotationsFile, imageWithTags.Key);
-                var imagePathResolved = Path.GetFullPath(imagePath);
+                var imagePathResolved = Uri.UnescapeDataString(Path.GetFullPath(imagePath));
 
                 var outputPath = Path.Combine(_outputDirImages, Path.GetFileName(imagePathResolved));
                 File.Copy(imagePathResolved, outputPath, true);
@@ -156,7 +156,7 @@ namespace DeveImageDataSetGenerator
             foreach (var imageWithTags in groupedTagsPerImage)
             {
                 var imagePath = Path.Combine(_dirOfAnnotationsFile, imageWithTags.Key);
-                var imagePathResolved = Path.GetFullPath(imagePath);
+                var imagePathResolved = Uri.UnescapeDataString(Path.GetFullPath(imagePath));
 
                 var newAnnotations = _imageProcessor.ProcessImage(imagePathResolved, imageWithTags);
                 allAnnotations.AddRange(newAnnotations);
