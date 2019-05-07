@@ -55,16 +55,19 @@ namespace DeveImageDataSetGenerator
 
             var outputAnnotationsDir = Path.GetDirectoryName(_outputAnnotationsFile);
 
-            int minOfBoth = Math.Min(imagesWithNoCars.Count, imagesWithLotsOfCars.Count);
-            int maxOfBoth = Math.Max(imagesWithNoCars.Count, imagesWithLotsOfCars.Count);
+            var imagesWithNoCarsRandomizedOrder = ListRandomizer.Shuffle(imagesWithNoCars, 42);
+            var imagesWithLotsOfCarsRandomizedorder = ListRandomizer.Shuffle(imagesWithLotsOfCars, 4242);
+
+            int minOfBoth = Math.Min(imagesWithNoCarsRandomizedOrder.Count, imagesWithLotsOfCarsRandomizedorder.Count);
+            int maxOfBoth = Math.Max(imagesWithNoCarsRandomizedOrder.Count, imagesWithLotsOfCarsRandomizedorder.Count);
 
             for (int i = 0; i < maxOfBoth; i++)
             {
-                var iNoCars = i % imagesWithNoCars.Count;
-                var iLotsOfCars = i % imagesWithLotsOfCars.Count;
+                var iNoCars = i % imagesWithNoCarsRandomizedOrder.Count;
+                var iLotsOfCars = i % imagesWithLotsOfCarsRandomizedorder.Count;
 
-                var noCarImageTags = imagesWithNoCars[iNoCars];
-                var lotsOfCarImageTags = imagesWithLotsOfCars[iLotsOfCars];
+                var noCarImageTags = imagesWithNoCarsRandomizedOrder[iNoCars];
+                var lotsOfCarImageTags = imagesWithLotsOfCarsRandomizedorder[iLotsOfCars];
 
                 var imagePathNoCars = Path.Combine(_dirOfAnnotationsFile, noCarImageTags.Key);
                 var imagePathNoCarsResolved = PathHelper.EscapePathCorrectly(Path.GetFullPath(imagePathNoCars));
