@@ -67,10 +67,10 @@ namespace DeveImageDataSetGenerator
                 var lotsOfCarImageTags = imagesWithLotsOfCars[iLotsOfCars];
 
                 var imagePathNoCars = Path.Combine(_dirOfAnnotationsFile, noCarImageTags.Key);
-                var imagePathNoCarsResolved = Uri.UnescapeDataString(Path.GetFullPath(imagePathNoCars));
+                var imagePathNoCarsResolved = PathHelper.EscapePathCorrectly(Path.GetFullPath(imagePathNoCars));
 
                 var imagePathLotsOfCars = Path.Combine(_dirOfAnnotationsFile, lotsOfCarImageTags.Key);
-                var imagePathLotsOfCarsResolved = Uri.UnescapeDataString(Path.GetFullPath(imagePathLotsOfCars));
+                var imagePathLotsOfCarsResolved = PathHelper.EscapePathCorrectly(Path.GetFullPath(imagePathLotsOfCars));
 
                 using (var imageNoCars = Image.Load(imagePathNoCarsResolved))
                 {
@@ -101,7 +101,7 @@ namespace DeveImageDataSetGenerator
                         var newTag = new Annotations()
                         {
                             Tag = existingTag.Tag,
-                            ImagePath = Uri.UnescapeDataString(Path.GetRelativePath(outputAnnotationsDir, outPath)),
+                            ImagePath = PathHelper.EscapePathCorrectly(Path.GetRelativePath(outputAnnotationsDir, outPath)),
                             X1 = existingTag.X1,
                             X2 = existingTag.X2,
                             Y1 = existingTag.Y1,
@@ -125,7 +125,7 @@ namespace DeveImageDataSetGenerator
             foreach (var imageWithTags in groupedTagsPerImage)
             {
                 var imagePath = Path.Combine(_dirOfAnnotationsFile, imageWithTags.Key);
-                var imagePathResolved = Uri.UnescapeDataString(Path.GetFullPath(imagePath));
+                var imagePathResolved = PathHelper.EscapePathCorrectly(Path.GetFullPath(imagePath));
 
                 var outputPath = Path.Combine(_outputDirImages, Path.GetFileName(imagePathResolved));
                 File.Copy(imagePathResolved, outputPath, true);
@@ -135,7 +135,7 @@ namespace DeveImageDataSetGenerator
                     var newTag = new Annotations()
                     {
                         Tag = existingTag.Tag,
-                        ImagePath = Uri.UnescapeDataString(Path.GetRelativePath(outputAnnotationsDir, outputPath)),
+                        ImagePath = PathHelper.EscapePathCorrectly(Path.GetRelativePath(outputAnnotationsDir, outputPath)),
                         X1 = existingTag.X1,
                         X2 = existingTag.X2,
                         Y1 = existingTag.Y1,
@@ -156,7 +156,7 @@ namespace DeveImageDataSetGenerator
             foreach (var imageWithTags in groupedTagsPerImage)
             {
                 var imagePath = Path.Combine(_dirOfAnnotationsFile, imageWithTags.Key);
-                var imagePathResolved = Uri.UnescapeDataString(Path.GetFullPath(imagePath));
+                var imagePathResolved = PathHelper.EscapePathCorrectly(Path.GetFullPath(imagePath));
 
                 var newAnnotations = _imageProcessor.ProcessImage(imagePathResolved, imageWithTags);
                 allAnnotations.AddRange(newAnnotations);

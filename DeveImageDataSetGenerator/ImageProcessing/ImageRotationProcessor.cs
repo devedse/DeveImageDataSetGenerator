@@ -1,4 +1,5 @@
 ﻿using DeveImageDataSetGenerator.DataInputOutput;
+using DeveImageDataSetGenerator.Helpers;
 using MathNet.Spatial.Euclidean;
 using MathNet.Spatial.Units;
 using SixLabors.ImageSharp;
@@ -96,11 +97,11 @@ namespace DeveImageDataSetGenerator.ImageProcessing
                         var newY1 = allNewPositions.Min(t => t.Y);
                         var newY2 = allNewPositions.Max(t => t.Y);
 
-                        var newRelativeImagePath = Uri.UnescapeDataString(Path.GetRelativePath(_outputDirectoryAnnotations, outPath));
+                        var newRelativeImagePath = PathHelper.EscapePathCorrectly(Path.GetRelativePath(_outputDirectoryAnnotations, outPath));
 
                         newAnnotations.Add(new Annotations()
                         {
-                            ImagePath = newRelativeImagePath.Replace('\\', '/'),
+                            ImagePath = newRelativeImagePath,
                             Tag = tag.Tag,
                             X1 = (int)newX1,
                             X2 = (int)newX2,
