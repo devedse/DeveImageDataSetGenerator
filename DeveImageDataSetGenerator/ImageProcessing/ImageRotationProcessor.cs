@@ -96,7 +96,7 @@ namespace DeveImageDataSetGenerator.ImageProcessing
                         var newY1 = allNewPositions.Min(t => t.Y);
                         var newY2 = allNewPositions.Max(t => t.Y);
 
-                        var newRelativeImagePath = Path.GetRelativePath(_outputDirectoryAnnotations, outPath);
+                        var newRelativeImagePath = Uri.UnescapeDataString(Path.GetRelativePath(_outputDirectoryAnnotations, outPath));
 
                         newAnnotations.Add(new Annotations()
                         {

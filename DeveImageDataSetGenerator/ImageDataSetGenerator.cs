@@ -101,7 +101,7 @@ namespace DeveImageDataSetGenerator
                         var newTag = new Annotations()
                         {
                             Tag = existingTag.Tag,
-                            ImagePath = Path.GetRelativePath(outputAnnotationsDir, outPath),
+                            ImagePath = Uri.UnescapeDataString(Path.GetRelativePath(outputAnnotationsDir, outPath)),
                             X1 = existingTag.X1,
                             X2 = existingTag.X2,
                             Y1 = existingTag.Y1,
@@ -135,7 +135,7 @@ namespace DeveImageDataSetGenerator
                     var newTag = new Annotations()
                     {
                         Tag = existingTag.Tag,
-                        ImagePath = Path.GetRelativePath(outputAnnotationsDir, outputPath),
+                        ImagePath = Uri.UnescapeDataString(Path.GetRelativePath(outputAnnotationsDir, outputPath)),
                         X1 = existingTag.X1,
                         X2 = existingTag.X2,
                         Y1 = existingTag.Y1,
