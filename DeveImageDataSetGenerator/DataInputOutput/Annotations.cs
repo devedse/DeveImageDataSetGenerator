@@ -22,6 +22,7 @@ namespace DeveImageDataSetGenerator.DataInputOutput
         [Index(5)]
         public string Tag { get; set; }
 
+        [Ignore]
         public bool IsValid => X1 != null && X2 != null && Y1 != null && Y2 != null && !string.IsNullOrWhiteSpace(Tag);
     }
 }
